@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quadratic Calculator & A Students Grading System</title>
+</head>
+<body bgcolor="gold">
+
+  <h1>Quadratic Equation Calculator & A Students Grading System</h1>
+  <marquee behavior="scroll" direction="right">QUADRATIC EQUATIONS CALCULATOR AND A STUDENTS GRADING SYSTEM</marquee>
+
+  <!-- Menu buttons -->
+  <div>
+    <button onclick="showSection('quadratic')">Quadratic Calculator</button>
+    <button onclick="showSection('grading')">Grading System</button>
+  </div>
+
+  <!-- Quadratic Equation Calculator Section -->
+  <div id="quadratic">
+    <h2>Quadratic Equation Calculator</h2>
+    <p>Enter coefficients for ax² + bx + c = 0</p>
+    a: <input type="number" id="a" placeholder="a">
+    b: <input type="number" id="b" placeholder="b">
+    c: <input type="number" id="c" placeholder="c"><br><br>
+    <button onclick="solveQuadratic()">Calculate</button>
+    <p id="quadResult"></p>
+  </div>
+
+  <!-- Grading System Section -->
+  <div id="grading" style="display:none;">
+    <h2>Grading System</h2>
+    <p>Enter student's score (0–100):</p>
+    Score: <input type="number" id="score" placeholder="Score"><br><br>
+    <button onclick="showGrade()">Show Grade</button>
+    <p id="gradeResult"></p>
+  </div>
+
+  <script>
+    // Function to switch between sections
+    function showSection(sectionId) {
+      document.getElementById("quadratic").style.display = "none";
+      document.getElementById("grading").style.display = "none";
+      document.getElementById(sectionId).style.display = "block";
+    }
+
+    // Quadratic Equation Solver
+    function solveQuadratic() {
+      const a = parseFloat(document.getElementById("a").value);
+      const b = parseFloat(document.getElementById("b").value);
+      const c = parseFloat(document.getElementById("c").value);
+      const result = document.getElementById("quadResult");
+
+      if (isNaN(a) || isNaN(b) || isNaN(c)) {
+        result.textContent = "Please enter valid numbers for a, b, and c.";
+        return;
+      }
+      if (a === 0) {
+        result.textContent = "Coefficient 'a' cannot be zero.";
+        return;
+      }
+
+      const discriminant = b*b - 4*a*c;
+      let output = "";
+
+      if (discriminant > 0) {
+        const x1 = (-b + Math.sqrt(discriminant)) / (2*a);
+        const x2 = (-b - Math.sqrt(discriminant)) / (2*a);
+        output = `Two real roots: x₁ = ${x1.toFixed(2)}, x₂ = ${x2.toFixed(2)}`;
+      } else if (discriminant === 0) {
+        const x = -b / (2*a);
+        output = `One real root: x = ${x.toFixed(2)}`;
+      } else {
+        const real = (-b / (2*a)).toFixed(2);
+        const imag = (Math.sqrt(-discriminant) / (2*a)).toFixed(2);
+        output = `Complex roots: x₁ = ${real} + ${imag}i, x₂ = ${real} - ${imag}i`;
+      }
+
+      result.textContent = output;
+    }
+
+    // Grading System
+    function getGrade() {
+      const score = parseInt(document.getElementById("score").value);
+      const result = document.getElementById("gradeResult");
+
+      if (isNaN(score) || score < 0 || score > 100) {
+        result.textContent = "Please enter a valid score between 0 and 100.";
+        return;
+      }
+
+      let grade;
+      if (score >= 85 && score <= 100) grade = "A+";
+      else if (score >= 75 && score <= 84) grade = "A";
+      else if (score >= 65 && score <= 74) grade = "B+";
+      else if (score >= 60 && score <= 64) grade = "B";
+      else if (score >= 55 && score <= 59) grade = "C+";
+      else if (score >= 50 && score <= 54) grade = "C";
+      else grade = "D";
+
+      result.textContent = `Score: ${score} → Grade: ${grade}`;
+    }
+  </script>
+
+</body>
+</html>
