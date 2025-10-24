@@ -3,45 +3,49 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quadratic Calculator & A Students Grading System</title>
+  <title style="color: black;">Quadratic Solver & Grading System</title>
 </head>
-<body bgcolor="gold">
-
-  <h1>Quadratic Equation Calculator & A Students Grading System</h1>
-  <marquee behavior="scroll" direction="right">QUADRATIC EQUATIONS CALCULATOR AND A STUDENTS GRADING SYSTEM</marquee>
+<body bgcolor="apple green">
+  
+  <header>
+    <div id="top">
+      <h1>Quadratic Equation Solver & Grade Helper</h1>
+      <marquee>SOLVING THE QUADRATIC EQUATIONS AND MAKING A GRADING SYSTEM</marquee>
+    </div>
+  </header>
 
   <!-- Menu buttons -->
   <div>
-    <button onclick="showSection('quadratic')">Quadratic Calculator</button>
+    <button onclick="showSection('quadratic')">Quadratic Solver</button>
     <button onclick="showSection('grading')">Grading System</button>
   </div>
 
-  <!-- Quadratic Equation Calculator Section -->
-  <div id="quadratic">
-    <h2>Quadratic Equation Calculator</h2>
+  <!-- Quadratic Equation Solver Section -->
+  <div id="quadratic" class="container">
+    <h2>Quadratic Equation Solver</h2>
     <p>Enter coefficients for ax² + bx + c = 0</p>
-    a: <input type="number" id="a" placeholder="a">
-    b: <input type="number" id="b" placeholder="b">
-    c: <input type="number" id="c" placeholder="c"><br><br>
-    <button onclick="solveQuadratic()">Calculate</button>
-    <p id="quadResult"></p>
+    <input type="number" id="a" placeholder="a">
+    <input type="number" id="b" placeholder="b">
+    <input type="number" id="c" placeholder="c"><br>
+    <button onclick="solveQuadratic()">Solve</button>
+    <div id="quadResult" class="result"></div>
   </div>
 
   <!-- Grading System Section -->
-  <div id="grading" style="display:none;">
+  <div id="grading" class="container hidden">
     <h2>Grading System</h2>
     <p>Enter student's score (0–100):</p>
-    Score: <input type="number" id="score" placeholder="Score"><br><br>
-    <button onclick="showGrade()">Show Grade</button>
-    <p id="gradeResult"></p>
+    <input type="number" id="score" placeholder="Score"><br>
+    <button onclick="getGrade()">Get Grade</button>
+    <div id="gradeResult" class="result"></div>
   </div>
 
   <script>
     // Function to switch between sections
     function showSection(sectionId) {
-      document.getElementById("quadratic").style.display = "none";
-      document.getElementById("grading").style.display = "none";
-      document.getElementById(sectionId).style.display = "block";
+      document.getElementById("quadratic").classList.add("hidden");
+      document.getElementById("grading").classList.add("hidden");
+      document.getElementById(sectionId).classList.remove("hidden");
     }
 
     // Quadratic Equation Solver
@@ -90,17 +94,17 @@
       }
 
       let grade;
-      if (score >= 85 && score <= 100) grade = "A+";
-      else if (score >= 75 && score <= 84) grade = "A";
-      else if (score >= 65 && score <= 74) grade = "B+";
-      else if (score >= 60 && score <= 64) grade = "B";
-      else if (score >= 55 && score <= 59) grade = "C+";
-      else if (score >= 50 && score <= 54) grade = "C";
-      else grade = "D";
+      if (score >= 85 && score <=100) grade = "A+";
+      else if (score >= 75 && score <=84) grade = "A";
+      else if (score>=65 && score <=74) grade ="B+";
+      else if (score >= 60 && score<=64) grade = "B";
+      else if (score >=55 && score <=59) grade ="C+"
+      else if (score >= 50 && score <=54) grade = "C";
+      else if (score >= 0 && score <=49) grade = "D";
+      else grade = "Invalid score";
 
-      result.textContent = `Score: ${score} → Grade: ${grade}`;
+      result.textContent = `Grade: ${grade}`;
     }
   </script>
-
 </body>
 </html>
